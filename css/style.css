@@ -986,6 +986,39 @@ body:hover .custom-cursor-ring {
     position: relative;
 }
 
+.mockup-img-body {
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.project-mockup-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform var(--transition-medium);
+}
+
+.project-card:hover .project-mockup-img {
+    transform: scale(1.05);
+}
+
+.modal-image-preview {
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 20px;
+}
+
+.modal-preview-img {
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+}
+
 /* Mockup Specific Visuals */
 .mockup-musify .audio-wave-visualizer {
     display: flex;

@@ -87,53 +87,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Project Showcase Modal System
     const projectData = {
-        'musify': {
-            title: 'MUSIFY',
+        'trend-caption': {
+            title: 'TREND CAPTION',
             category: '01 — FEATURED WEB APP',
-            description: 'A modern music streaming web application built with clean HTML5, CSS3, and JavaScript. Features custom audio visualizers, playlist creation, search functionality, sleek glassmorphism audio player UI, and full volume/playback controls.',
-            overview: 'Musify reimagines web audio streaming with a futuristic dark glassmorphism interface. Designed specifically for high visual appeal and fluid user interactions.',
+            description: 'A modern AI-powered social media caption and viral trend generator web application designed for content creators, marketers, and influencers to instantly craft engaging captions, hashtags, and viral content ideas.',
+            overview: 'Trend Caption empowers content creators by leveraging AI algorithms to automatically craft catchy captions, optimize hashtag strategies, and discover trending topics across social media platforms.',
             features: [
-                'Real-time Audio Frequency Spectrum Visualizer via Web Audio API',
-                'Custom Play/Pause, Seek Bar, and Track Queue Management',
-                'Sleek Dark Futuristic Interface with Subtle Glowing Elements',
-                'Completely Responsive Layout across Mobile, Tablet, and Desktop'
+                'AI Caption & Hashtag Generation Engine for Instagram, X, LinkedIn & TikTok',
+                'Sleek Dark Responsive Interface with Glassmorphism UI & Micro-interactions',
+                'One-Click Copy, Preset Platform Tags & Custom Tonal Selectors',
+                'High Performance & Fluid User Experience Across All Devices'
             ],
-            technologies: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'Web Audio API', 'Bootstrap'],
-            challenges: 'Synchronizing real-time Canvas audio visualization nodes with native browser HTML5 audio playback without causing UI frame drops.',
+            technologies: ['React', 'JavaScript', 'CSS3', 'AI API', 'Responsive UI'],
+            challenges: 'Optimizing API response handling while maintaining smooth UI state transitions and crisp responsive layouts across all mobile viewports.',
             github: 'https://github.com',
-            live: '#'
-        },
-        'project-two': {
-            title: 'PROJECT TWO - NOVA DASHBOARD',
-            category: '02 — RESPONSIVE WEB DASHBOARD',
-            description: 'Modern responsive web experience and metric analytics dashboard offering real-time metric visualization, dark mode UI theme, interactive charts, and modular CSS grid system.',
-            overview: 'Engineered for data clarity and aesthetic precision, Nova Dashboard allows users to monitor complex analytics in a clean, uncluttered interface.',
-            features: [
-                'Responsive Modular Grid System with Drag-and-Drop Widgets',
-                'Interactive Metric Visualizations and Progress Indicators',
-                'Dark Mode Color Palette with Emerald and Cyan Accents',
-                'Optimized Performance for High Frame Rates'
-            ],
-            technologies: ['React', 'Bootstrap 5', 'CSS3 Flexbox/Grid', 'JavaScript'],
-            challenges: 'Structuring responsive CSS grid layouts that adapt gracefully to dense data charts on smaller mobile viewports.',
-            github: 'https://github.com',
-            live: '#'
-        },
-        'project-three': {
-            title: 'PROJECT THREE - CYBER SPACE',
-            category: '03 — INTERACTIVE 3D WEB APPLICATION',
-            description: 'Interactive frontend application built with WebGL particle systems, smooth parallax mouse interactions, custom shader lighting, and responsive UI components.',
-            overview: 'An experimental web showcase built to demonstrate high-level interactive graphics, custom WebGL rendering, and fluid user engagement.',
-            features: [
-                'Interactive Three.js 3D Particle Cloud with Physics-based Attraction',
-                'Custom Shader Materials and Ambient Lighting',
-                'Smooth Parallax Micro-animations on Scroll',
-                'Semantic Accessible UI Controls'
-            ],
-            technologies: ['JavaScript', 'Three.js', 'CSS3 Animations', 'HTML5'],
-            challenges: 'Maintaining 60 FPS rendering on lower-end mobile devices while maintaining 3D particle lighting effects.',
-            github: 'https://github.com',
-            live: '#'
+            live: 'https://trendcaption.lovable.app/',
+            image: 'assets/images/trend-caption-preview.png'
         }
     };
 
@@ -154,6 +123,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="section-tag">${data.category}</span>
                         <h2 class="modal-project-title" id="modal-project-title">${data.title}</h2>
                     </div>
+
+                    ${data.image ? `
+                    <div class="modal-image-preview">
+                        <img src="${data.image}" alt="${data.title}" class="modal-preview-img">
+                    </div>
+                    ` : ''}
                     
                     <p class="modal-description">${data.description}</p>
                     

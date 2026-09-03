@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Interactive Cursor Glowing Grid Canvas Engine (Clean Straight Lines with Cursor Radial Light Glow)
+    // 5. Straight Line Glowing Grid Canvas Engine with Light Wave Ripples
     if (!prefersReducedMotion) {
         initGlowingGridCanvas();
     }
@@ -123,23 +123,62 @@ document.addEventListener('DOMContentLoaded', () => {
         let mouseY = height / 2;
         let glowX = width / 2;
         let glowY = height / 2;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+
+        const ripples = [];
 
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+
+            const dist = Math.hypot(e.clientX - lastMouseX, e.clientY - lastMouseY);
+            if (dist > 22) {
+                ripples.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    radius: 0,
+                    maxRadius: 240,
+                    speed: 4.5,
+                    alpha: 1
+                });
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            ripples.push({
+                x: e.clientX,
+                y: e.clientY,
+                radius: 0,
+                maxRadius: 320,
+                speed: 5.5,
+                alpha: 1
+            });
         });
 
         function animateGlowingGrid() {
             ctx.clearRect(0, 0, width, height);
 
-            // Smooth Lerp Glow Position towards Mouse
+            // Smooth Lerp Cursor Glow Position
             glowX += (mouseX - glowX) * 0.12;
             glowY += (mouseY - glowY) * 0.12;
 
             const cols = Math.ceil(width / GRID_SIZE) + 1;
             const rows = Math.ceil(height / GRID_SIZE) + 1;
 
-            // 1. Draw Base Static Dark Ambient Grid Lines (Clean & Straight)
+            // 1. Update Active Ripples
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                const r = ripples[i];
+                r.radius += r.speed;
+                r.alpha = 1 - (r.radius / r.maxRadius);
+                if (r.radius >= r.maxRadius) {
+                    ripples.splice(i, 1);
+                }
+            }
+
+            // 2. Draw Base Clean & Straight Grid Lines (Zero Distortion)
             ctx.beginPath();
             for (let c = 0; c <= cols; c++) {
                 const x = c * GRID_SIZE;
@@ -155,7 +194,42 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.lineWidth = 1;
             ctx.stroke();
 
-            // 2. Draw Cursor Following Radial Light Glow Grid Overlay
+            // 3. Draw Expanding Light Wave Glow on Straight Grid Lines
+            ripples.forEach(rip => {
+                const waveRadius = rip.radius;
+                const waveGlowGradient = ctx.createRadialGradient(rip.x, rip.y, Math.max(0, waveRadius - 25), rip.x, rip.y, waveRadius + 25);
+                waveGlowGradient.addColorStop(0, 'rgba(0, 240, 255, 0)');
+                waveGlowGradient.addColorStop(0.5, `rgba(0, 255, 157, ${rip.alpha * 0.35})`);
+                waveGlowGradient.addColorStop(1, 'rgba(0, 240, 255, 0)');
+
+                ctx.beginPath();
+                for (let c = 0; c <= cols; c++) {
+                    const x = c * GRID_SIZE;
+                    if (Math.abs(x - rip.x) <= waveRadius + 30) {
+                        ctx.moveTo(x, Math.max(0, rip.y - waveRadius - 30));
+                        ctx.lineTo(x, Math.min(height, rip.y + waveRadius + 30));
+                    }
+                }
+                for (let r = 0; r <= rows; r++) {
+                    const y = r * GRID_SIZE;
+                    if (Math.abs(y - rip.y) <= waveRadius + 30) {
+                        ctx.moveTo(Math.max(0, rip.x - waveRadius - 30), y);
+                        ctx.lineTo(Math.min(width, rip.x + waveRadius + 30), y);
+                    }
+                }
+                ctx.strokeStyle = waveGlowGradient;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                // Expanding Wave Ring
+                ctx.beginPath();
+                ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(0, 240, 255, ${rip.alpha * 0.3})`;
+                ctx.lineWidth = 1.2;
+                ctx.stroke();
+            });
+
+            // 4. Draw Cursor Following Radial Light Glow Overlay
             const glowRadius = 320;
             const gradient = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, glowRadius);
             gradient.addColorStop(0, 'rgba(0, 240, 255, 0.42)');
@@ -181,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.lineWidth = 1.5;
             ctx.stroke();
 
-            // 3. Draw Subtle Glowing Intersection Dots near Cursor
+            // 5. Draw Glowing Intersection Dots near Cursor
             for (let c = 0; c <= cols; c++) {
                 const x = c * GRID_SIZE;
                 if (Math.abs(x - glowX) > glowRadius) continue;
