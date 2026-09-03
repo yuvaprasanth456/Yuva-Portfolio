@@ -98,16 +98,17 @@ body {
 
 .bg-grid-pattern {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: -40px;
+    left: -40px;
+    width: calc(100vw + 80px);
+    height: calc(100vh + 80px);
     background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        linear-gradient(rgba(0, 240, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.045) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
     z-index: -1;
+    will-change: transform;
 }
 
 /* Custom Scrollbar */
