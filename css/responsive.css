@@ -1,0 +1,231 @@
+/* ==========================================================================
+   YUVA PRASANTH R - RESPONSIVE STYLESHEET
+   ========================================================================== */
+
+/* Laptop & Large Screens (Max 1200px) */
+@media screen and (max-width: 1200px) {
+    .hero-name {
+        font-size: 3.2rem;
+    }
+    
+    .hero-title {
+        font-size: 1.9rem;
+    }
+    
+    .project-card {
+        padding: 28px;
+    }
+}
+
+/* Tablet Layout (Max 992px) */
+@media screen and (max-width: 992px) {
+    .section-padding {
+        padding: 90px 0;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        text-align: center;
+    }
+
+    .status-badge-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-cta-group {
+        justify-content: center;
+    }
+
+    .hero-visual-wrapper {
+        height: 420px;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .skills-layout {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .project-card {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .timeline-line {
+        display: none;
+    }
+
+    .timeline-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .contact-wrapper {
+        padding: 40px 30px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .contact-orb-wrapper {
+        width: 350px;
+        height: 350px;
+        right: -50px;
+        bottom: -50px;
+    }
+}
+
+/* Mobile Devices & Small Screens (Max 768px) */
+@media screen and (max-width: 768px) {
+    /* Hide Custom Cursor on Touch Devices */
+    .custom-cursor-dot,
+    .custom-cursor-ring {
+        display: none !important;
+    }
+
+    /* Mobile Navigation Drawer */
+    .mobile-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: rgba(5, 7, 12, 0.96);
+        backdrop-filter: blur(25px);
+        padding: 100px 30px 40px 30px;
+        transition: right var(--transition-medium);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+    }
+
+    .mobile-toggle.active .bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .mobile-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-toggle.active .bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Hero Responsive */
+    .hero-name {
+        font-size: 2.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-description {
+        font-size: 1.05rem;
+    }
+
+    .hero-cta-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-cta-group .btn {
+        width: 100%;
+    }
+
+    .hero-visual-wrapper {
+        height: 340px;
+    }
+
+    .hud-badge {
+        display: none;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .footer-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .modal-container {
+        padding: 24px 20px;
+    }
+}
+
+/* Extra Small Mobile (Max 480px) */
+@media screen and (max-width: 480px) {
+    .hero-name {
+        font-size: 2.1rem;
+    }
+
+    .section-heading {
+        font-size: 2rem;
+    }
+
+    .project-actions {
+        flex-wrap: wrap;
+    }
+}
