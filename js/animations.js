@@ -94,4 +94,115 @@ document.addEventListener('DOMContentLoaded', () => {
             }, stepTime);
         });
     }
+
+    // 5. Interactive Cursor Glowing Grid Canvas Engine (Clean Straight Lines with Cursor Radial Light Glow)
+    if (!prefersReducedMotion) {
+        initGlowingGridCanvas();
+    }
+
+    function initGlowingGridCanvas() {
+        const canvas = document.getElementById('bg-ripple-grid-canvas');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        const GRID_SIZE = 55;
+
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * Math.min(window.devicePixelRatio, 2);
+            canvas.height = height * Math.min(window.devicePixelRatio, 2);
+            ctx.scale(Math.min(window.devicePixelRatio, 2), Math.min(window.devicePixelRatio, 2));
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let mouseX = width / 2;
+        let mouseY = height / 2;
+        let glowX = width / 2;
+        let glowY = height / 2;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateGlowingGrid() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Smooth Lerp Glow Position towards Mouse
+            glowX += (mouseX - glowX) * 0.12;
+            glowY += (mouseY - glowY) * 0.12;
+
+            const cols = Math.ceil(width / GRID_SIZE) + 1;
+            const rows = Math.ceil(height / GRID_SIZE) + 1;
+
+            // 1. Draw Base Static Dark Ambient Grid Lines (Clean & Straight)
+            ctx.beginPath();
+            for (let c = 0; c <= cols; c++) {
+                const x = c * GRID_SIZE;
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+            }
+            for (let r = 0; r <= rows; r++) {
+                const y = r * GRID_SIZE;
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+            }
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.035)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // 2. Draw Cursor Following Radial Light Glow Grid Overlay
+            const glowRadius = 320;
+            const gradient = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, glowRadius);
+            gradient.addColorStop(0, 'rgba(0, 240, 255, 0.42)');
+            gradient.addColorStop(0.45, 'rgba(0, 255, 157, 0.22)');
+            gradient.addColorStop(1, 'rgba(0, 240, 255, 0)');
+
+            ctx.beginPath();
+            for (let c = 0; c <= cols; c++) {
+                const x = c * GRID_SIZE;
+                if (Math.abs(x - glowX) < glowRadius) {
+                    ctx.moveTo(x, Math.max(0, glowY - glowRadius));
+                    ctx.lineTo(x, Math.min(height, glowY + glowRadius));
+                }
+            }
+            for (let r = 0; r <= rows; r++) {
+                const y = r * GRID_SIZE;
+                if (Math.abs(y - glowY) < glowRadius) {
+                    ctx.moveTo(Math.max(0, glowX - glowRadius), y);
+                    ctx.lineTo(Math.min(width, glowX + glowRadius), y);
+                }
+            }
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // 3. Draw Subtle Glowing Intersection Dots near Cursor
+            for (let c = 0; c <= cols; c++) {
+                const x = c * GRID_SIZE;
+                if (Math.abs(x - glowX) > glowRadius) continue;
+
+                for (let r = 0; r <= rows; r++) {
+                    const y = r * GRID_SIZE;
+                    const dist = Math.hypot(x - glowX, y - glowY);
+
+                    if (dist < glowRadius) {
+                        const alpha = (1 - dist / glowRadius) * 0.75;
+                        ctx.beginPath();
+                        ctx.arc(x, y, 2.5 * (1 - dist / glowRadius), 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(0, 240, 255, ${alpha})`;
+                        ctx.fill();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateGlowingGrid);
+        }
+
+        animateGlowingGrid();
+    }
 });

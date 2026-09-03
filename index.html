@@ -29,7 +29,7 @@
     <!-- Background Noise & Glow Overlay -->
     <div class="ambient-light ambient-light-1"></div>
     <div class="ambient-light ambient-light-2"></div>
-    <div class="bg-grid-pattern"></div>
+    <canvas id="bg-ripple-grid-canvas"></canvas>
     
     <!-- Custom Cursor -->
     <div class="custom-cursor-dot" id="cursor-dot"></div>
@@ -108,6 +108,12 @@
                     <div class="hero-3d-container">
                         <canvas id="hero-3d-canvas"></canvas>
                         
+                        <!-- Hero Profile Image Container -->
+                        <div class="hero-profile-wrapper">
+                            <div class="hero-profile-glow"></div>
+                            <img src="assets/images/hero-profile.png" alt="Yuva Prasanth R - Frontend Developer" class="hero-profile-img">
+                        </div>
+
                         <!-- Floating Glass Status Card -->
                         <div class="hero-floating-card glass-card">
                             <div class="card-header-status">
@@ -120,16 +126,6 @@
                                 <span class="tag">JavaScript</span>
                                 <span class="tag">React</span>
                             </div>
-                        </div>
-
-                        <!-- Floating HUD Decorative Badges -->
-                        <div class="hud-badge hud-badge-1">
-                            <i class="fa-solid fa-code"></i>
-                            <span>Clean Code Architecture</span>
-                        </div>
-                        <div class="hud-badge hud-badge-2">
-                            <i class="fa-solid fa-cubes"></i>
-                            <span>3D & Interactive UI</span>
                         </div>
                     </div>
                 </div>
@@ -153,43 +149,53 @@
                             <span>DISCOVER</span>
                         </div>
                         <h2 class="section-heading">ABOUT ME</h2>
+                        <h3 class="about-subheading text-gradient">Turning ideas into engaging digital experiences.</h3>
                         <div class="about-accent-box">
                             <i class="fa-solid fa-terminal"></i>
-                            <p class="mono-text">// CRAFTING DIGITAL PERFECTION</p>
+                            <p class="mono-text">// BUILD. CREATE. INNOVATE.</p>
                         </div>
                     </div>
                     
                     <div class="about-right reveal-element">
                         <p class="about-text-lead">
-                            I am a passionate <strong class="highlight-text">Frontend Developer</strong> dedicated to creating visually stunning, performance-driven, and highly responsive web interfaces.
+                            I’m <strong class="highlight-text">YUVA PRASANTH R</strong>, a passionate <strong class="highlight-text">Frontend Developer</strong> focused on creating modern, responsive, and interactive web experiences.
                         </p>
                         <p class="about-text-body">
-                            My focus centers on modular frontend architecture, fluid animations, dynamic user interfaces, and human-centered design. I transform creative concepts into clean, accessible, and robust digital products.
+                            I enjoy transforming ideas and designs into clean, functional interfaces using <strong class="highlight-text">HTML, CSS, JavaScript, Bootstrap, and React</strong>. I’m particularly interested in creating websites that combine thoughtful UI design, smooth interactions, responsive layouts, and a strong visual identity.
+                        </p>
+                        <p class="about-text-body">
+                            I continuously explore new technologies and frontend techniques to improve my development skills and build digital experiences that are not only functional, but also memorable.
                         </p>
                         
-                        <div class="stats-grid">
-                            <div class="stat-card glass-card">
-                                <div class="stat-number-wrapper">
-                                    <span class="stat-number" data-target="1">0</span>
-                                    <span class="stat-plus">+</span>
+                        <div class="about-info-grid">
+                            <div class="about-info-card glass-card">
+                                <div class="info-card-header">
+                                    <i class="fa-solid fa-graduation-cap info-icon"></i>
+                                    <span class="info-label">DEGREE</span>
                                 </div>
-                                <span class="stat-label">Years Learning</span>
+                                <h4 class="info-title">B.E. Computer Science Engineering</h4>
+                                <span class="info-subtext">BATCH 2024 - 2028</span>
                             </div>
                             
-                            <div class="stat-card glass-card">
-                                <div class="stat-number-wrapper">
-                                    <span class="stat-number" data-target="5">0</span>
-                                    <span class="stat-plus">+</span>
+                            <div class="about-info-card glass-card">
+                                <div class="info-card-header">
+                                    <i class="fa-solid fa-building-columns info-icon"></i>
+                                    <span class="info-label">COLLEGE</span>
                                 </div>
-                                <span class="stat-label">Projects</span>
+                                <h4 class="info-title">J.J. College of Engineering and Technology</h4>
+                                <span class="info-subtext">Ammapettai, Trichy</span>
                             </div>
                             
-                            <div class="stat-card glass-card">
-                                <div class="stat-number-wrapper">
-                                    <span class="stat-number" data-target="10">0</span>
-                                    <span class="stat-plus">+</span>
+                            <div class="about-info-card glass-card">
+                                <div class="info-card-header">
+                                    <i class="fa-solid fa-briefcase info-icon"></i>
+                                    <span class="info-label">STATUS</span>
                                 </div>
-                                <span class="stat-label">Technologies</span>
+                                <h4 class="info-title status-highlight">
+                                    <span class="pulse-dot"></span>
+                                    Open to Internship
+                                </h4>
+                                <span class="info-subtext">Available for Opportunities</span>
                             </div>
                         </div>
                     </div>

@@ -180,6 +180,7 @@
         display: none;
     }
 
+    .about-info-grid,
     .stats-grid {
         grid-template-columns: 1fr;
         gap: 16px;

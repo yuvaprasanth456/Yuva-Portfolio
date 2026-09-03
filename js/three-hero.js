@@ -35,54 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroGroup = new THREE.Group();
     scene.add(heroGroup);
 
-    // Central Core: Metallic Glass TorusKnot
-    const coreGeometry = new THREE.TorusKnotGeometry(1.2, 0.35, 128, 32);
-    const coreMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0x0e172a,
-        metalness: 0.8,
-        roughness: 0.1,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.1,
-        transmission: 0.6,
-        thickness: 1.2,
-        reflectivity: 0.9,
-        wireframe: false
-    });
-    const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
-    heroGroup.add(coreMesh);
+    // Central Core Object Removed per user request
 
-    // Outer Wireframe Glow Shell
-    const wireGeometry = new THREE.TorusKnotGeometry(1.23, 0.36, 64, 16);
-    const wireMaterial = new THREE.MeshBasicMaterial({
-        color: 0x00f0ff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.25
-    });
-    const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
-    heroGroup.add(wireMesh);
 
-    // Outer Rotating Orbital Ring 1
-    const ring1Geo = new THREE.TorusGeometry(2.4, 0.02, 16, 100);
-    const ring1Mat = new THREE.MeshBasicMaterial({
-        color: 0x00f0ff,
-        transparent: true,
-        opacity: 0.5
-    });
-    const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-    ring1.rotation.x = Math.PI / 3;
-    heroGroup.add(ring1);
-
-    // Outer Rotating Orbital Ring 2
-    const ring2Geo = new THREE.TorusGeometry(2.8, 0.015, 16, 100);
-    const ring2Mat = new THREE.MeshBasicMaterial({
-        color: 0x00ff9d,
-        transparent: true,
-        opacity: 0.4
-    });
-    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-    ring2.rotation.y = Math.PI / 4;
-    heroGroup.add(ring2);
+    // Orbital rings removed per user request
 
     // 4. Floating Holographic Code Panels (3D Planes)
     function createCodeTexture(textLines, accentColor) {
@@ -192,8 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
         heroGroup.rotation.y = elapsedTime * 0.3 + targetX * 0.8;
         heroGroup.rotation.x = elapsedTime * 0.15 + targetY * 0.5;
 
-        ring1.rotation.z = elapsedTime * 0.4;
-        ring2.rotation.z = -elapsedTime * 0.3;
+        // Profile Image Subtle 3D Mouse Parallax Tilt
+        const profileImg = document.querySelector('.hero-profile-img');
+        if (profileImg) {
+            profileImg.style.transform = `perspective(1000px) rotateY(${targetX * 10}deg) rotateX(${-targetY * 10}deg) translateZ(10px)`;
+        }
 
         // Panel Floating Wave Effect
         panel1.position.y = 1.2 + Math.sin(elapsedTime * 1.5) * 0.15;
