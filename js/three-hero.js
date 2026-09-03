@@ -40,53 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Orbital rings removed per user request
 
-    // 4. Floating Holographic Code Panels (3D Planes)
-    function createCodeTexture(textLines, accentColor) {
-        const canvasText = document.createElement('canvas');
-        canvasText.width = 256;
-        canvasText.height = 128;
-        const ctx = canvasText.getContext('2d');
-
-        // Background
-        ctx.fillStyle = 'rgba(13, 20, 34, 0.85)';
-        ctx.fillRect(0, 0, 256, 128);
-
-        // Border
-        ctx.strokeStyle = accentColor;
-        ctx.lineWidth = 4;
-        ctx.strokeRect(2, 2, 252, 124);
-
-        // Text
-        ctx.font = '14px "JetBrains Mono", monospace';
-        ctx.fillStyle = accentColor;
-        textLines.forEach((line, idx) => {
-            ctx.fillText(line, 16, 30 + idx * 24);
-        });
-
-        return new THREE.CanvasTexture(canvasText);
-    }
-
-    const panelTexture1 = createCodeTexture(['const app = () => {', '  return <ReactUI />', '}'], '#00f0ff');
-    const panelGeo1 = new THREE.PlaneGeometry(1.6, 0.8);
-    const panelMat1 = new THREE.MeshBasicMaterial({
-        map: panelTexture1,
-        transparent: true,
-        side: THREE.DoubleSide
-    });
-    const panel1 = new THREE.Mesh(panelGeo1, panelMat1);
-    panel1.position.set(2.2, 1.2, 0.5);
-    heroGroup.add(panel1);
-
-    const panelTexture2 = createCodeTexture(['.futuristic-ui {', '  display: flex;', '  glow: electric;', '}'], '#00ff9d');
-    const panelGeo2 = new THREE.PlaneGeometry(1.6, 0.8);
-    const panelMat2 = new THREE.MeshBasicMaterial({
-        map: panelTexture2,
-        transparent: true,
-        side: THREE.DoubleSide
-    });
-    const panel2 = new THREE.Mesh(panelGeo2, panelMat2);
-    panel2.position.set(-2.2, -1.0, 0.8);
-    heroGroup.add(panel2);
+    // 4. Floating Holographic Code Panels removed per user request
 
     // 5. Floating Glowing Particle Field
     const particleCount = 200;
@@ -153,10 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (profileImg) {
             profileImg.style.transform = `perspective(1000px) rotateY(${targetX * 10}deg) rotateX(${-targetY * 10}deg) translateZ(10px)`;
         }
-
-        // Panel Floating Wave Effect
-        panel1.position.y = 1.2 + Math.sin(elapsedTime * 1.5) * 0.15;
-        panel2.position.y = -1.0 + Math.cos(elapsedTime * 1.5) * 0.15;
 
         // Particle Rotation
         particles.rotation.y = elapsedTime * 0.05;
