@@ -2,11 +2,42 @@
    YUVA PRASANTH R - THREE.JS ORB & SKILL VISUALIZATIONS
    ========================================================================== */
 
-// 1. Contact Section Background 3D Glowing Orb
+// 1. Contact Section Background Visual & Interactive Effects
 document.addEventListener('DOMContentLoaded', () => {
+    initContactVisual();
     initContactOrb();
     initOrbitalSkills();
 });
+
+function initContactVisual() {
+    const wrapper = document.querySelector('.contact-wrapper');
+    const visual = document.querySelector('.contact-visual-wrapper');
+    if (!wrapper || !visual) return;
+
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    wrapper.addEventListener('mousemove', (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 24;
+        targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 24;
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+        targetX = 0;
+        targetY = 0;
+    });
+
+    function animateParallax() {
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+        visual.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        requestAnimationFrame(animateParallax);
+    }
+    animateParallax();
+}
 
 function initContactOrb() {
     const canvas = document.getElementById('contact-orb-canvas');

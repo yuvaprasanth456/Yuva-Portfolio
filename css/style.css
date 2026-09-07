@@ -1414,15 +1414,61 @@ body:hover .custom-cursor-ring {
     overflow: hidden;
 }
 
+.contact-visual-wrapper,
 .contact-orb-wrapper {
     position: absolute;
-    right: -100px;
-    bottom: -100px;
-    width: 500px;
-    height: 500px;
+    right: -60px;
+    bottom: -60px;
+    width: 480px;
+    height: 480px;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.6;
+    perspective: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-visual-glow {
+    position: absolute;
+    inset: 15%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.32) 0%, rgba(255, 170, 0, 0.12) 45%, transparent 70%);
+    filter: blur(40px);
+    border-radius: 50%;
+    animation: visualGlowPulse 5s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes visualGlowPulse {
+    0% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+    100% {
+        opacity: 0.95;
+        transform: scale(1.08);
+    }
+}
+
+.contact-visual-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.28));
+    animation: frontendLevitate 7s ease-in-out infinite;
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1) 62%, rgba(0, 0, 0, 0) 95%);
+    mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1) 62%, rgba(0, 0, 0, 0) 95%);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes frontendLevitate {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-16px) rotate(2deg);
+    }
 }
 
 #contact-orb-canvas {
@@ -1866,4 +1912,14 @@ body.light-theme {
 
 .light-theme .nav-menu {
     background: rgba(255, 255, 255, 0.98);
+}
+
+.light-theme .contact-visual-img {
+    mix-blend-mode: multiply;
+    opacity: 0.88;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.12));
+}
+
+.light-theme .contact-visual-glow {
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.2) 0%, rgba(245, 158, 11, 0.08) 50%, transparent 70%);
 }

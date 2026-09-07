@@ -88,11 +88,13 @@
         gap: 40px;
     }
 
+    .contact-visual-wrapper,
     .contact-orb-wrapper {
-        width: 350px;
-        height: 350px;
-        right: -50px;
-        bottom: -50px;
+        width: 340px;
+        height: 340px;
+        right: -30px;
+        bottom: -30px;
+        opacity: 0.75;
     }
 }
 
