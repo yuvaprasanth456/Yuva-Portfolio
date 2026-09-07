@@ -100,8 +100,8 @@ function initOrbitalSkills() {
         { name: 'React', color: '#61dafb' },
         { name: 'Git', color: '#f05032' },
         { name: 'GitHub', color: '#ffffff' },
-        { name: 'Responsive', color: '#ffd700' },
-        { name: 'UI/UX', color: '#ffc107' }
+        { name: 'Responsive', color: '#38bdf8' },
+        { name: 'UI/UX', color: '#ff7262' }
     ];
 
     let angle = 0;
