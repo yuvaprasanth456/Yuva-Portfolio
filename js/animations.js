@@ -178,6 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            const isLight = document.body.classList.contains('light-theme') || document.documentElement.classList.contains('light-theme');
+
             // 2. Draw Base Clean & Straight Grid Lines (Zero Distortion)
             ctx.beginPath();
             for (let c = 0; c <= cols; c++) {
@@ -190,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.moveTo(0, y);
                 ctx.lineTo(width, y);
             }
-            ctx.strokeStyle = 'rgba(255, 215, 0, 0.045)';
+            ctx.strokeStyle = isLight ? 'rgba(180, 120, 20, 0.09)' : 'rgba(255, 215, 0, 0.045)';
             ctx.lineWidth = 1;
             ctx.stroke();
 
@@ -198,9 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
             ripples.forEach(rip => {
                 const waveRadius = rip.radius;
                 const waveGlowGradient = ctx.createRadialGradient(rip.x, rip.y, Math.max(0, waveRadius - 25), rip.x, rip.y, waveRadius + 25);
-                waveGlowGradient.addColorStop(0, 'rgba(255, 215, 0, 0)');
-                waveGlowGradient.addColorStop(0.5, `rgba(255, 215, 0, ${rip.alpha * 0.45})`);
-                waveGlowGradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+                const waveColor = isLight ? `rgba(217, 119, 6, ${rip.alpha * 0.35})` : `rgba(255, 215, 0, ${rip.alpha * 0.45})`;
+                waveGlowGradient.addColorStop(0, isLight ? 'rgba(217, 119, 6, 0)' : 'rgba(255, 215, 0, 0)');
+                waveGlowGradient.addColorStop(0.5, waveColor);
+                waveGlowGradient.addColorStop(1, isLight ? 'rgba(217, 119, 6, 0)' : 'rgba(255, 215, 0, 0)');
 
                 ctx.beginPath();
                 for (let c = 0; c <= cols; c++) {
@@ -224,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Expanding Wave Ring
                 ctx.beginPath();
                 ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(255, 215, 0, ${rip.alpha * 0.35})`;
+                ctx.strokeStyle = isLight ? `rgba(217, 119, 6, ${rip.alpha * 0.25})` : `rgba(255, 215, 0, ${rip.alpha * 0.35})`;
                 ctx.lineWidth = 1.2;
                 ctx.stroke();
             });
@@ -232,9 +235,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Draw Cursor Following Radial Light Glow Overlay
             const glowRadius = 320;
             const gradient = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, glowRadius);
-            gradient.addColorStop(0, 'rgba(255, 215, 0, 0.45)');
-            gradient.addColorStop(0.45, 'rgba(255, 170, 0, 0.22)');
-            gradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+            if (isLight) {
+                gradient.addColorStop(0, 'rgba(245, 158, 11, 0.22)');
+                gradient.addColorStop(0.45, 'rgba(217, 119, 6, 0.1)');
+                gradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
+            } else {
+                gradient.addColorStop(0, 'rgba(255, 215, 0, 0.45)');
+                gradient.addColorStop(0.45, 'rgba(255, 170, 0, 0.22)');
+                gradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+            }
 
             ctx.beginPath();
             for (let c = 0; c <= cols; c++) {
@@ -265,10 +274,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dist = Math.hypot(x - glowX, y - glowY);
 
                     if (dist < glowRadius) {
-                        const alpha = (1 - dist / glowRadius) * 0.85;
+                        const alpha = (1 - dist / glowRadius) * (isLight ? 0.9 : 0.85);
                         ctx.beginPath();
                         ctx.arc(x, y, 2.5 * (1 - dist / glowRadius), 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(255, 220, 70, ${alpha})`;
+                        ctx.fillStyle = isLight ? `rgba(217, 119, 6, ${alpha})` : `rgba(255, 220, 70, ${alpha})`;
                         ctx.fill();
                     }
                 }

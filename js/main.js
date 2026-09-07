@@ -3,6 +3,23 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Theme Toggle (Dark / Light)
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('portfolio-theme');
+
+    if (savedTheme === 'light') {
+        document.documentElement.classList.add('light-theme');
+        document.body.classList.add('light-theme');
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const isLight = document.body.classList.toggle('light-theme');
+            document.documentElement.classList.toggle('light-theme', isLight);
+            localStorage.setItem('portfolio-theme', isLight ? 'light' : 'dark');
+        });
+    }
+
     // 1. Navigation Sticky & Active Link Tracking
     const navbarWrapper = document.querySelector('.navbar-wrapper');
     const sections = document.querySelectorAll('section[id]');

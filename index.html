@@ -25,6 +25,11 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        if (localStorage.getItem('portfolio-theme') === 'light') {
+            document.documentElement.classList.add('light-theme');
+        }
+    </script>
 </head>
 <body>
 
@@ -57,6 +62,10 @@
             </div>
             
             <div class="nav-actions">
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark / Light Theme" title="Toggle Theme">
+                    <i class="fa-solid fa-sun icon-sun"></i>
+                    <i class="fa-solid fa-moon icon-moon"></i>
+                </button>
                 <a href="#contact" class="btn btn-glowing nav-cta">
                     <span>LET'S TALK</span>
                     <i class="fa-solid fa-arrow-right"></i>
