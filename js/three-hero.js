@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambientLight);
 
-    const pointLightBlue = new THREE.PointLight(0x00f0ff, 2.5, 50);
+    const pointLightBlue = new THREE.PointLight(0xffd700, 2.5, 50);
     pointLightBlue.position.set(5, 5, 5);
     scene.add(pointLightBlue);
 
-    const pointLightGreen = new THREE.PointLight(0x00ff9d, 2.5, 50);
+    const pointLightGreen = new THREE.PointLight(0xffaa00, 2.5, 50);
     pointLightGreen.position.set(-5, -5, 5);
     scene.add(pointLightGreen);
 
@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
 
-    const colorBlue = new THREE.Color(0x00f0ff);
-    const colorGreen = new THREE.Color(0x00ff9d);
+    const colorBlue = new THREE.Color(0xffd700);
+    const colorGreen = new THREE.Color(0xffc107);
 
     for (let i = 0; i < particleCount; i++) {
         positions[i * 3] = (Math.random() - 0.5) * 12;

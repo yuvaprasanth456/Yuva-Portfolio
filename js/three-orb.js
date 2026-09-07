@@ -27,7 +27,7 @@ function initContactOrb() {
     // Orb Mesh (Icosahedron with wireframe and glowing point lights)
     const geometry = new THREE.IcosahedronGeometry(1.8, 4);
     const material = new THREE.MeshBasicMaterial({
-        color: 0x00f0ff,
+        color: 0xffd700,
         wireframe: true,
         transparent: true,
         opacity: 0.35
@@ -39,9 +39,9 @@ function initContactOrb() {
     // Inner Glowing Core
     const coreGeo = new THREE.IcosahedronGeometry(1.2, 2);
     const coreMat = new THREE.MeshBasicMaterial({
-        color: 0x00ff9d,
+        color: 0xffa500,
         transparent: true,
-        opacity: 0.15
+        opacity: 0.18
     });
     const coreMesh = new THREE.Mesh(coreGeo, coreMat);
     scene.add(coreMesh);
@@ -100,8 +100,8 @@ function initOrbitalSkills() {
         { name: 'React', color: '#61dafb' },
         { name: 'Git', color: '#f05032' },
         { name: 'GitHub', color: '#ffffff' },
-        { name: 'Responsive', color: '#00ff9d' },
-        { name: 'UI/UX', color: '#00f0ff' }
+        { name: 'Responsive', color: '#ffd700' },
+        { name: 'UI/UX', color: '#ffc107' }
     ];
 
     let angle = 0;
@@ -117,7 +117,7 @@ function initOrbitalSkills() {
         // Draw Outer Orbital Ellipse
         ctx.beginPath();
         ctx.ellipse(centerX, centerY, radiusX, radiusY, Math.PI / 6, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.2)';
+        ctx.strokeStyle = 'rgba(255, 215, 0, 0.25)';
         ctx.lineWidth = 1.5;
         ctx.setLineDash([6, 6]);
         ctx.stroke();
@@ -126,7 +126,7 @@ function initOrbitalSkills() {
         // Draw Inner Glowing Orbit Ring
         ctx.beginPath();
         ctx.ellipse(centerX, centerY, radiusX * 0.65, radiusY * 0.65, -Math.PI / 4, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(0, 255, 157, 0.15)';
+        ctx.strokeStyle = 'rgba(255, 170, 0, 0.18)';
         ctx.lineWidth = 1;
         ctx.stroke();
 
