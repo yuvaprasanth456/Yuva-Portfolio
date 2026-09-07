@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "echo 'Static build complete'",
     "dev": "vercel dev"
   },
   "dependencies": {
