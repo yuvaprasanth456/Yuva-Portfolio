@@ -1,0 +1,12 @@
+{
+  "name": "yuva-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "resend": "^3.2.0"
+  }
+}

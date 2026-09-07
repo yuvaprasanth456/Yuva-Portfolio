@@ -194,32 +194,72 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape') closeModal();
     });
 
-    // 5. Contact Form Interactive Validation
+    // 5. Contact Form Interactive Submission with Resend API
     const contactForm = document.getElementById('contact-form');
     const formFeedback = document.getElementById('form-feedback');
 
     if (contactForm && formFeedback) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
 
+            const name = nameInput ? nameInput.value.trim() : '';
+            const email = emailInput ? emailInput.value.trim() : '';
+            const message = messageInput ? messageInput.value.trim() : '';
+
+            // Basic client-side validation
             if (!name || !email || !message) {
                 formFeedback.className = 'form-feedback error';
                 formFeedback.textContent = 'Please fill out all required fields.';
                 return;
             }
 
-            // Success feedback
-            formFeedback.className = 'form-feedback success';
-            formFeedback.textContent = 'Thank you! Your message has been sent successfully.';
-            contactForm.reset();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                formFeedback.className = 'form-feedback error';
+                formFeedback.textContent = 'Please enter a valid email address.';
+                return;
+            }
 
-            setTimeout(() => {
-                formFeedback.textContent = '';
-            }, 5000);
+            // UI Loading state
+            const originalBtnHTML = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>SENDING...</span> <i class="fa-solid fa-circle-notch fa-spin"></i>`;
+            formFeedback.className = 'form-feedback';
+            formFeedback.textContent = '';
+
+            try {
+                const response = await fetch('/api/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, message }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    formFeedback.className = 'form-feedback success';
+                    formFeedback.textContent = 'Thank you! Your message has been sent successfully. I will get back to you soon.';
+                    contactForm.reset();
+                } else {
+                    throw new Error(result.error || 'Failed to send message. Please try again.');
+                }
+            } catch (error) {
+                formFeedback.className = 'form-feedback error';
+                formFeedback.textContent = error.message || 'Something went wrong. Please try again or email directly.';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHTML;
+                setTimeout(() => {
+                    formFeedback.textContent = '';
+                }, 7000);
+            }
         });
     }
 });
